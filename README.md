@@ -1,0 +1,2 @@
+# local_LLM_game_translator
+使用基于ollama部署的本地语言模型来离线和实时翻译游戏文本的工具。工具运行需要安装Ollama以及部署本地模型，可翻译来自MTool导出的离线文本，以及接收来自XUnity.AutoTranslator插件的在线文本。
