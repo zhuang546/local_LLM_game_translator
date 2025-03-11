@@ -1,0 +1,28 @@
+from MToolTranlator import MToolTranlator
+from UnityTranslator import UnityTranslator
+from OllamaTranslationClient import pause_exit
+from sys import argv
+
+if __name__ == "__main__":
+    if len(argv) > 1:
+        print('检测到离线翻译文件：', argv[1],'，使用离线翻译模式。')
+        mtool_translator = MToolTranlator()
+        mtool_translator.run(argv)
+        pause_exit()
+
+    print("请选择模式:")
+    print("1. 离线模式（用于MTool导出的待翻译文件的批量翻译）")
+    print("2. 在线模式（用于XUnity.AutoTranslator插件的实时翻译）")
+    
+    choice = input("请输入选项 (1 或 2): ").strip()
+    if choice == '1':
+        print("已选择离线模式。")
+        mtool_translator = MToolTranlator()
+        mtool_translator.run()
+        pause_exit()
+    elif choice == '2':
+        print("已选择在线模式。")
+        unity_translator_app = UnityTranslator()
+        unity_translator_app.run()
+    else:
+        print("无效输入，请输入 1 或 2")
