@@ -1,12 +1,7 @@
 from ollama import Client
 from ollama import list as ollama_list
-from os import system
 from OllamaServer import OllamaServer
-
-def pause_exit(error_message=''):
-        print(error_message)
-        system('pause')
-        exit()
+from OllamaServer import pause_exit
 
 '''
 OllamaTranslationClient类的主要职能：
