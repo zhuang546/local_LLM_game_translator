@@ -2,7 +2,7 @@ from ConfigManager import ConfigManager
 from os import path, mkdir
 from json import load, dump
 from tqdm import tqdm
-from os import system
+from OllamaServer import pause_exit
 from re import compile
 from sys import argv
 
@@ -118,8 +118,7 @@ class MToolTranlator(ConfigManager):
         else:
             self.file_path = input('请输入待翻译文件的路径（可带引号）：').strip('\'" ') # 手动输入文件路径
             if not path.isfile(self.file_path):
-                print('文件路径不存在或不合法！')
-                system('pause')
+                pause_exit('文件路径不存在或不合法！')
                 return
         self.translate_json()
 
