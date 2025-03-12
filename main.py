@@ -1,6 +1,6 @@
 from MToolTranlator import MToolTranlator
 from UnityTranslator import UnityTranslator
-from OllamaTranslationClient import pause_exit
+from OllamaServer import pause_exit
 from sys import argv
 
 if __name__ == "__main__":
@@ -19,10 +19,10 @@ if __name__ == "__main__":
         print("已选择离线模式。")
         mtool_translator = MToolTranlator()
         mtool_translator.run()
-        pause_exit()
     elif choice == '2':
         print("已选择在线模式。")
         unity_translator_app = UnityTranslator()
         unity_translator_app.run()
     else:
-        print("无效输入，请输入 1 或 2")
+        pause_exit("无效输入，请输入 1 或 2")
+    pause_exit()
