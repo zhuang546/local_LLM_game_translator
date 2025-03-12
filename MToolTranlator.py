@@ -102,7 +102,7 @@ class MToolTranlator(ConfigManager):
         translated_file_path = path.basename(self.file_path)[:-5]+'_translated.json'
         with open(translated_file_path, 'w', encoding='utf-8') as f:
             dump(translated_texts, f, indent=4, ensure_ascii=False)
-        print('所有文本翻译完成！已保存到：', temp_filepath)
+        print('所有文本翻译完成！已保存到：', translated_file_path)
 
         # 输出错误生成的文本到文件
         if error_texts:
