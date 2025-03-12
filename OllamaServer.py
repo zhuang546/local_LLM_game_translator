@@ -2,7 +2,12 @@
 import subprocess
 import time
 import psutil
-from os import system
+from sys import exit
+
+def pause_exit(error_message=''):
+    print(error_message)
+    input("按回车继续...")
+    exit()
 
 '''
 OllamaServer 类：
@@ -55,5 +60,4 @@ class OllamaServer:
 if __name__ == "__main__":
     # 测试代码
     managment = OllamaServer()
-    system("pause")
-    exit(0)
+    pause_exit()
