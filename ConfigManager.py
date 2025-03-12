@@ -1,8 +1,8 @@
 from OllamaTranslationClient import OllamaTranslationClient
-from re import compile
-from os import system, path
+from os import path
 import configparser
 from json import load, dump
+from OllamaServer import pause_exit
 
 # 默认配置，用于初始化配置文件
 default_config = { # 就6个参数还分成3组，完全是为了好看
@@ -85,4 +85,4 @@ class ConfigManager:
 if __name__ == "__main__":
     manager = ConfigManager('config.ini', 'messages.json')
     manager.client.run()
-    exit(0)
+    pause_exit()
