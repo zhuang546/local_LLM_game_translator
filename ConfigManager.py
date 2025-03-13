@@ -1,4 +1,3 @@
-
 # pyinstaller -F ConfigManager.py
 from OllamaTranslationClient import OllamaTranslationClient
 from os import path
@@ -20,7 +19,7 @@ class ConfigManager:
             'stop_words': '翻译,」」,]],)),））'
         },
         'History': {
-            'history_max_length': '20',
+            'history_max_length': '10',
             'clear_history': 'True'
         },
         'System': {
@@ -53,11 +52,11 @@ class ConfigManager:
             self.config_init()
 
         self.config.read(self.config_path, encoding='utf-8') # 读取配置文件
-        self.num_predict = self.config.getint('Model', 'num_predict', fallback=ConfigManager.default_config['Model']['num_predict'])  # 生成的token数量限制
-        self.temperature = self.config.getfloat('Model', 'temperature', fallback=ConfigManager.default_config['Model']['temperature'])  # 文本的多样性
+        self.num_predict = self.config.getint('Model', 'num_predict', fallback=int(ConfigManager.default_config['Model']['num_predict']))  # 生成的token数量限制
+        self.temperature = self.config.getfloat('Model', 'temperature', fallback=float(ConfigManager.default_config['Model']['temperature']))  # 文本的多样性
         self.stop = self.config.get('Model', 'stop_words', fallback=ConfigManager.default_config['Model']['stop_words']).split(',')  # 停止符
-        self.history_max_length = self.config.getint('History', 'history_max_length', fallback=ConfigManager.default_config['History']['history_max_length'])  # 对话历史最大长度
-        self.clear_history = self.config.getboolean('History', 'clear_history', fallback=ConfigManager.default_config['History']['clear_history'])  # 是否清空对话历史
+        self.history_max_length = self.config.getint('History', 'history_max_length', fallback=int(ConfigManager.default_config['History']['history_max_length']))  # 对话历史最大长度
+        self.clear_history = self.config.getboolean('History', 'clear_history', fallback=bool(ConfigManager.default_config['History']['clear_history']))  # 是否清空对话历史
         self.system_message = self.config.get('System', 'system_message', fallback=ConfigManager.default_config['System']['system_message'])  # 系统消息
 
         self.client = OllamaTranslationClient(self.num_predict, self.temperature, self.stop, self.history_max_length, self.clear_history, self.system_message)
