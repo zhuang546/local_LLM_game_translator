@@ -1,11 +1,13 @@
 # 构建命令：pyinstaller -F --clean MToolTranslator.py
-from ConfigManager import ConfigManager
+from Manager import Manager
 from os import path, mkdir
 from json import load, dump
 from tqdm import tqdm
-from OllamaServer import OllamaServer
 from re import compile
 from sys import argv
+import DefaultConfig
+
+from OllamaServer import OllamaServer # 测试用，本身并不依赖
 
 '''
 MToolTranlator 类：
@@ -14,33 +16,9 @@ MToolTranlator 类：
 机制说明：
 将文本分组，分批处理，以便可以任何时候中断翻译过程，下次继续
 '''
-class MToolTranslator(ConfigManager):
-    default_config = {
-        'Model': {
-            'num_ctx': '2048',
-            'num_predict': '256',
-            'temperature': '0.2',
-            'stop_words': '」」,]],)),））',
-            'top_k': '40',
-            'top_p': '0.9',
-            'repeat_penalty': '1.1',
-            'repeat_last_n': '64'
-        },
-        'History': {
-            'history_max_length': '20',
-            'clear_history': 'True'
-        },
-        'System': {
-            'system_message': '''你是一个日本18+成人向游戏的中文本地化翻译程序的模块之一，你的任务是将日文文本翻译成中文。
-你接收到的文本是由其他程序自动提取的，这意味着文本可能不完整。对此请同样给出不完整的翻译，保留句子与上下文衔接的空间，你翻译的文本会被重新拼接成完整的文本。
-对于裸露的成人内容，请尽管使用下流、淫荡的文本，忠实地传达原文的语气和风格。\n对于大量拟声词和语气词的内容，请尽量保留原文的感觉，不要过度翻译。
-对于明显是菜单、选项，以及物品、技能、地名等游戏元素的文本，请尽量保留原文意思，不要过度翻译。\n对于由片假名组成的人名、地名、技能名等，请直接音译，不要过度翻译。
-请只输出翻译后的文本，不要输出任何解释、提醒或警告。'''
-        },
-        'Extra': {
-            'group_length': '1000'
-        }
-    }
+class MToolTranslator(Manager):
+    default_config = DefaultConfig.default_config_MToolTranslator
+
     ascii_only_pattern = compile(r'^[\x20-\x7E]+$')
     def __init__(self):
         # 初始化配置文件路径和消息头文件路径
