@@ -1,6 +1,6 @@
 # 构建命令：pyinstaller -F --clean main.py
 from MToolLocalTranslator import MToolTranslator
-from UnityLocalTranslator import UnityTranslator
+from UnityLocalTranslator import UnityLocalTranslator
 from sys import argv
 from OllamaServer import OllamaServer
 
@@ -23,7 +23,7 @@ if __name__ == "__main__":
         mtool_translator.run()
     elif choice == '2':
         print("已选择在线模式。")
-        unity_translator_app = UnityTranslator()
+        unity_translator_app = UnityLocalTranslator()
         unity_translator_app.run()
     else:
         OllamaServer.sys_exit("无效输入，请输入 1 或 2")

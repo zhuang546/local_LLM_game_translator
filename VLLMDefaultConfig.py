@@ -1,26 +1,23 @@
-default_config = { # 就6个参数还分成3组，完全是为了好看
+default_config = {
     'Model': {
-        'num_ctx': '2048',
-        'num_predict': '256',
-        'temperature': '0.2',
-        #'stop_words': '」」,]],)),））',
-        'top_k': '40',
-        'top_p': '0.9',
-        'repeat_penalty': '1.1',
-        'repeat_last_n': '64'
+        'base_url': 'https://pee-continuously-bother-epa.trycloudflare.com',
+        'model': 'Qwen/Qwen3-30B-A3B-Instruct-2507-FP8',
+        'max_tokens': '1024',
+        'temperature': '0',
+        'top_p': '1'
     },
     'History': {
-        'history_max_length': '10',
-        'clear_history': 'True'
+        'history_max_length': '20',
+        'clear_history': 'False'
     },
     'System': {
-        'system_message': '''你是一个18+成人向游戏的中文本地化翻译AI，将用户发给你的文本翻译成合适的中文。
-请忠实的传达原文的语气和风格。
-对于裸露的色情内容，尽管将其翻译成下流、淫荡的文本。
-对于大量拟声词的内容，请适当翻译而不是照搬。
-请保持所有游戏文本标签（如\\n、<>、[]等）的内容不变。
-对于显然是UI按钮或选项、人物或物品的名称和描述的内容，请适当翻译。
-请只输出翻译后的文本，不要输出任何解释、道歉、客套话、提醒或警告。'''
+        'system_message': '''你是一个18+成人向游戏的中文本地化翻译AI，将用户发给你的日语文本翻译成合适的中文。
+你会忠实的传达原文的语气和风格，对于裸露的色情内容，将其翻译成下流、淫荡、挑逗、煽情的文本。
+你会根据上下文保持角色或其他实体的一致性，避免对相同概念进行不同翻译。
+对于由大量拟声词和拟态词组成的内容，你会生动地翻译而不是照搬，尤其是对于粘液声和淫叫声。
+你能正确地翻译包含Unity富文本标签（如<b></b>）的内容，而不会忽略或删除这些标签。
+对于显然是UI按钮或选项、人物或物品的名称和描述的内容，你会适当翻译。
+你只输出翻译后的文本，不输出任何解释、道歉、客套话、提醒或警告。'''
     },
     'Extra': {}
 }
@@ -40,18 +37,16 @@ default_glossary = {
     "おっぱい": "奶子"
 }
 
-default_config_UnityLocalTranslator = {
+default_config_UnityServerTranslator = {
     'Model': {
-        'num_ctx': '2048',
-        'num_predict': '256',
-        'temperature': '0.2',
-        'top_k': '10',
-        'top_p': '0.5',
-        'repeat_penalty': '0.9',
-        'repeat_last_n': '16'
+        'base_url': 'https://pee-continuously-bother-epa.trycloudflare.com',
+        'model': 'Qwen/Qwen3-30B-A3B-Instruct-2507-FP8',
+        'max_tokens': '1024',
+        'temperature': '0',
+        'top_p': '1'
     },
     'History': {
-        'history_max_length': '10',
+        'history_max_length': '20',
         'clear_history': 'False'
     },
     'System': {
@@ -68,17 +63,7 @@ default_config_UnityLocalTranslator = {
     }
 }
 
-default_config_MToolLocalTranslator = {
-        'Model': {
-            'num_ctx': '2048',
-            'num_predict': '256',
-            'temperature': '0.2',
-            #'stop_words': '」」,]],)),））',
-            'top_k': '40',
-            'top_p': '0.9',
-            'repeat_penalty': '1.1',
-            'repeat_last_n': '64'
-        },
+default_config_MToolServerTranslator = {
         'History': {
             'history_max_length': '20',
             'clear_history': 'True'

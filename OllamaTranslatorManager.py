@@ -12,7 +12,7 @@ Manager类：
 MToolTranlator 和 UnityTranslator 的父类
 用于管理配置文件和消息头文件，提供翻译调用
 '''
-class Manager:
+class OllamaTranslatorManager:
     # 默认配置，用于初始化配置文件
     default_config = OllamaDefaultConfig.default_config
     default_glossary = OllamaDefaultConfig.default_glossary
@@ -27,18 +27,18 @@ class Manager:
             self.config_init()
 
         self.config.read(self.config_path, encoding='utf-8') # 读取配置文件
-        self.num_ctx = self.config.getint('Model', 'num_ctx', fallback=int(Manager.default_config['Model']['num_ctx']))  # 上下文长度限制
-        self.num_predict = self.config.getint('Model', 'num_predict', fallback=int(Manager.default_config['Model']['num_predict']))  # 生成的token数量限制
-        self.temperature = self.config.getfloat('Model', 'temperature', fallback=float(Manager.default_config['Model']['temperature']))  # 文本的多样性
+        self.num_ctx = self.config.getint('Model', 'num_ctx', fallback=int(OllamaTranslatorManager.default_config['Model']['num_ctx']))  # 上下文长度限制
+        self.num_predict = self.config.getint('Model', 'num_predict', fallback=int(OllamaTranslatorManager.default_config['Model']['num_predict']))  # 生成的token数量限制
+        self.temperature = self.config.getfloat('Model', 'temperature', fallback=float(OllamaTranslatorManager.default_config['Model']['temperature']))  # 文本的多样性
         #self.stop = self.config.get('Model', 'stop_words', fallback=Manager.default_config['Model']['stop_words']).split(',')  # 停止符
-        self.top_k = self.config.getint('Model', 'top_k', fallback=int(Manager.default_config['Model']['top_k']))  # top_k采样
-        self.top_p = self.config.getfloat('Model', 'top_p', fallback=float(Manager.default_config['Model']['top_p']))  # top_p采样
-        self.repeat_penalty = self.config.getfloat('Model', 'repeat_penalty', fallback=float(Manager.default_config['Model']['repeat_penalty']))  # 重复惩罚
-        self.repeat_last_n = self.config.getint('Model', 'repeat_last_n', fallback=int(Manager.default_config['Model']['repeat_last_n']))  # 重复惩罚的范围
+        self.top_k = self.config.getint('Model', 'top_k', fallback=int(OllamaTranslatorManager.default_config['Model']['top_k']))  # top_k采样
+        self.top_p = self.config.getfloat('Model', 'top_p', fallback=float(OllamaTranslatorManager.default_config['Model']['top_p']))  # top_p采样
+        self.repeat_penalty = self.config.getfloat('Model', 'repeat_penalty', fallback=float(OllamaTranslatorManager.default_config['Model']['repeat_penalty']))  # 重复惩罚
+        self.repeat_last_n = self.config.getint('Model', 'repeat_last_n', fallback=int(OllamaTranslatorManager.default_config['Model']['repeat_last_n']))  # 重复惩罚的范围
 
-        self.history_max_length = self.config.getint('History', 'history_max_length', fallback=int(Manager.default_config['History']['history_max_length']))  # 对话历史最大长度
-        self.clear_history = self.config.getboolean('History', 'clear_history', fallback=bool(Manager.default_config['History']['clear_history']))  # 是否清空对话历史
-        self.system_message = self.config.get('System', 'system_message', fallback=Manager.default_config['System']['system_message'])  # 系统消息
+        self.history_max_length = self.config.getint('History', 'history_max_length', fallback=int(OllamaTranslatorManager.default_config['History']['history_max_length']))  # 对话历史最大长度
+        self.clear_history = self.config.getboolean('History', 'clear_history', fallback=bool(OllamaTranslatorManager.default_config['History']['clear_history']))  # 是否清空对话历史
+        self.system_message = self.config.get('System', 'system_message', fallback=OllamaTranslatorManager.default_config['System']['system_message'])  # 系统消息
 
         self.translator = OllamaTranslator(
             num_ctx=self.num_ctx,
@@ -71,12 +71,12 @@ class Manager:
             with open(self.glossary_path, 'r', encoding='utf-8') as f:
                 self.translator.build_glossary(load(f))
         else:
-            self.translator.build_glossary(Manager.default_glossary) # 否则使用默认术语表初始化文件
+            self.translator.build_glossary(OllamaTranslatorManager.default_glossary) # 否则使用默认术语表初始化文件
             with open(self.glossary_path, 'w', encoding='utf-8') as f:
-                dump(Manager.default_glossary, f, ensure_ascii=False, indent=4)
+                dump(OllamaTranslatorManager.default_glossary, f, ensure_ascii=False, indent=4)
 
 if __name__ == "__main__":
     OllamaServer.start_ollama_server()
-    manager = Manager('config.ini', 'glossary.json')
+    manager = OllamaTranslatorManager('config.ini', 'glossary.json')
     manager.translator.run()
     OllamaServer.sys_exit()

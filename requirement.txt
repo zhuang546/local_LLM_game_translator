@@ -1,0 +1,7 @@
+ollama
+fastapi
+uvicorn
+tqdm
+psutil
+requests
+pyinstaller
