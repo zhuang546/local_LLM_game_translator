@@ -2,10 +2,11 @@
 # qwen3更新了无推理版本后，无需再专门对qwen3做适配了
 # 构建命令：pyinstaller -F --clean UnityTranslator.py
 
+from doctest import Example
 from fastapi import FastAPI, Request
 from fastapi.responses import PlainTextResponse
 from time import time
-from Manager import Manager
+from OllamaTranslatorManager import Manager
 from OllamaServer import OllamaServer
 from os import path, mkdir
 from sys import argv
@@ -13,10 +14,15 @@ import asyncio
 from time import time
 import uvicorn
 from threading import Lock
-import DefaultConfig
+import OllamaDefaultConfig
+
+'''
+这个类为XUnity.AutoTranslator插件提供翻译服务，
+它接受来自插件的GET请求，并返回翻译结果。
+'''
 
 class UnityTranslator(Manager):
-    default_config = DefaultConfig.default_config_UnityTranslator
+    default_config = OllamaDefaultConfig.default_config_UnityTranslator
 
     def __init__(self):
 
@@ -37,7 +43,10 @@ class UnityTranslator(Manager):
 
         self.lock = Lock()
 
-        # 支持异步处理和批量翻译
+        # 接收来自XUnity.AutoTranslator的请求并返回翻译结果
+        # Example Request: GET http://localhost:5000/translate?from=ja&to=zh-CN&text=こんにちは
+        # Example Response (only body): 你好
+        # 支持异步处理
         @self.app.get('/translate')
         async def translate(request: Request):
             # 获取参数

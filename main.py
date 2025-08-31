@@ -1,6 +1,6 @@
 # 构建命令：pyinstaller -F --clean main.py
-from MToolTranslator import MToolTranslator
-from UnityTranslator import UnityTranslator
+from MToolLocalTranslator import MToolTranslator
+from UnityLocalTranslator import UnityTranslator
 from sys import argv
 from OllamaServer import OllamaServer
 

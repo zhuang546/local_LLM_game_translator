@@ -1,11 +1,11 @@
 # 构建命令：pyinstaller -F --clean MToolTranslator.py
-from Manager import Manager
+from OllamaTranslatorManager import Manager
 from os import path, mkdir
 from json import load, dump
 from tqdm import tqdm
 from re import compile
 from sys import argv
-import DefaultConfig
+import OllamaDefaultConfig
 
 from OllamaServer import OllamaServer # 测试用，本身并不依赖
 
@@ -17,7 +17,7 @@ MToolTranlator 类：
 将文本分组，分批处理，以便可以任何时候中断翻译过程，下次继续
 '''
 class MToolTranslator(Manager):
-    default_config = DefaultConfig.default_config_MToolTranslator
+    default_config = OllamaDefaultConfig.default_config_MToolTranslator
 
     ascii_only_pattern = compile(r'^[\x20-\x7E]+$')
     def __init__(self):

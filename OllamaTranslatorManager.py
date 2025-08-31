@@ -3,7 +3,7 @@ from OllamaTranslator import OllamaTranslator
 from os import path
 import configparser
 from json import load, dump
-import DefaultConfig
+import OllamaDefaultConfig
 
 from OllamaServer import OllamaServer # 测试用，本身并不依赖
 
@@ -14,8 +14,8 @@ MToolTranlator 和 UnityTranslator 的父类
 '''
 class Manager:
     # 默认配置，用于初始化配置文件
-    default_config = DefaultConfig.default_config
-    default_glossary = DefaultConfig.default_glossary
+    default_config = OllamaDefaultConfig.default_config
+    default_glossary = OllamaDefaultConfig.default_glossary
 
     def __init__(self, config_path, glossary_path, init_config=default_config):
         self.config_path = config_path # 配置文件路径
