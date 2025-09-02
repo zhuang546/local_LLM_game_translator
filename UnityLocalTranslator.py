@@ -13,7 +13,6 @@ from sys import argv
 import asyncio
 from time import time
 import uvicorn
-from threading import Lock
 import OllamaDefaultConfig
 
 '''
@@ -40,8 +39,6 @@ class UnityLocalTranslator(OllamaTranslatorManager):
             fallback=int(UnityLocalTranslator.default_config['Extra']['max_concurrent_requests'])
         )
         self.translate_semaphore = asyncio.Semaphore(max_concurrent_requests)  # 限制并发请求数
-
-        self.lock = Lock()
 
         # 接收来自XUnity.AutoTranslator的请求并返回翻译结果
         # Example Request: GET http://localhost:5000/translate?from=ja&to=zh-CN&text=こんにちは
